@@ -1424,9 +1424,11 @@ bool InputDispatcher::shouldWaitToSendKeyLocked(nsecs_t currentTime,
 
     if (!mKeyIsWaitingForEventsTimeout.has_value()) {
         // Start the timer
+#if DEBUG_DISPATCH_CYCLE
         ALOGD("Waiting to send key to %s because there are unprocessed events that may cause "
               "focus to change",
               focusedWindowName);
+#endif
         mKeyIsWaitingForEventsTimeout = currentTime + KEY_WAITING_FOR_EVENTS_TIMEOUT.count();
         return true;
     }
